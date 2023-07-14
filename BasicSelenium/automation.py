@@ -79,12 +79,21 @@ class DemoFindById():
         class_namee = "email-login-box"
         driver.find_element(By.CLASS_NAME, class_namee).send_keys("test@test.com")
 
-
+    def locate_by_tag_names(self):
+        
+        driver.get("https://www.yatra.com/")
+        tag_name = "a"
+        tags_list = driver.find_elements(By.TAG_NAME, tag_name)
+        print("➡ tags_list :", len(tags_list))
+        for i in tags_list:
+            print(i.text)
+        
 
 findbyid = DemoFindById()
 # findbyid.locate_by_id_css_selector()
 # findbyid.locate_by_link()
-findbyid.locate_by_tag_class_name()
+# findbyid.locate_by_tag_class_name()
+findbyid.locate_by_tag_names()
 
 
 # Add a delay of x seconds
