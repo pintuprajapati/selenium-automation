@@ -1,0 +1,64 @@
+<!--
+Here I am putting all the Element on which I am performing selenium task for a reference.
+Anyone can look the elements here and check why I have written particular code/query.
+-->
+
+
+
+<!-- Basic starts -->
+<input
+    type="text"
+    title="Enter your email id/mobile to continue."
+    class="yt-sme-mobile-input required_field email-login-box"
+    id="login-input"
+    data-regtype="phoneno"
+    name="login-input"
+    autocomplete="new-password"
+    placeholder="Email ID / Mobile Number"
+    autofocus=""
+    style="width: 100%; border-left: 0px solid rgb(204, 204, 204);"
+/>
+<!-- Basic Ends -->
+
+
+
+<!-- This is for XPath - “Axes (Parent, Child, Self)” starts -->
+
+<div class="title-field-container">
+    <select class="mobile-field-select" id="signup-user-designation">
+<option>Title</option>
+
+<option>Mr.</option>
+
+<option>Ms.</option>
+
+<option>Mrs.</option>
+
+<option>Dr.</option>
+
+</select>
+</div>
+
+<!-- Axes Ends -->
+
+
+
+
+<!-- # XPath - (descendant, descendant-or-self) starts -->
+<div id="login-form-container" class="login-form-container">
+    <section class="pageheadings-block">
+        <p class="main-title">Welcome to Yatra!</p>
+        <p class="sub-title" id="sub-title">Please Login/Register using your Email/Mobile to continue</p>
+    </section>
+    <div class="main-forms-wrapper">
+        <section class="form-container form-container-page">
+            <div class="form-container-left">
+                <form class="login-form" id="login-form" name="login-form" autocomplete="off">
+                </form>        
+            </div>    
+            <div class="info-container">
+            </div>
+    </section>
+    </div>
+</div>
+<!-- # XPath - (descendant, descendant-or-self) ends -->
