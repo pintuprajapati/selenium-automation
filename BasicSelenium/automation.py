@@ -3,7 +3,11 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.select import Select
+from selenium_recaptcha_solver import RecaptchaSolver
 
 # Downloaded/saved Chrome Driver path
 chrome_driver_path = "/broswer_drivers/chromedriver_linux64/chromedriversss"
@@ -87,17 +91,80 @@ class DemoFindById():
         print("➡ tags_list :", len(tags_list))
         for i in tags_list:
             print(i.text)
+    
+    def get_text_from_xpath(self):
+        driver.get("https://www.yatra.com/")
+        text_xpath = "//p[contains(text(), '7 Brilliant reasons Yatra should be your one-stop-shop!')]"
+        get_text = driver.find_element(By.XPATH, text_xpath)
+        print("➡ text :", get_text.text)
+
+        pre_text = "7 Brilliant reasons Yatra should be your one-stop-shop!"
+        if pre_text == get_text.text:
+            print('success!')
+
+    def get_attr_value(self):
+        driver.get("https://www.yatra.com/")
+        attr_xpath = "//div[@class='ripple-parent search-height demo-icon icon-go']//input[@id='BE_flight_flsearch_btn']"
+        attr_value = driver.find_element(By.XPATH, attr_xpath)
+        print("➡ attr_value get attr :", attr_value.get_attribute('type'))
+
+    def autofill_captcha_simple(self):
+        # driver.get("https://rsps100.com/vote/760")
+        driver.get("https://www.google.com/recaptcha/api2/demo")
+
+        # Wait for the page to load
+        time.sleep(10)
+
+        # Switch to the iframe
+        iframe = driver.find_element(By.XPATH, "//iframe[@title='reCAPTCHA']")
+        driver.switch_to.frame(iframe)
+
+        wait = WebDriverWait(driver, 20)
+        checkbox = wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@class='recaptcha-checkbox-border']")))
+        checkbox.click()
+
+    def autofill_captcha_complex(self):
+        # driver.get("https://rsps100.com/vote/760")
+        driver.get("https://www.google.com/recaptcha/api2/demo")
+
+        # Wait for the page to load
+        time.sleep(10)
+
+        # Switch to the iframe
+        iframe = driver.find_element(By.XPATH, "//iframe[@title='reCAPTCHA']")
+        driver.switch_to.frame(iframe)
+
+        # Solve the CAPTCHA using RecaptchaSolver
+        solver = RecaptchaSolver(driver=driver)
+        solver.click_recaptcha_v2(iframe=iframe)
+
+        # Switch back to the default content
+        driver.switch_to.default_content()
+
+        # Continue with the rest of your code...
+
+        # Wait for the checkbox to be visible within the main content
+        wait = WebDriverWait(driver, 20)
+        checkbox = wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@class='recaptcha-checkbox-border']")))
+
+        # Click on the checkbox
+        checkbox.click()
+    
         
 
 findbyid = DemoFindById()
 # findbyid.locate_by_id_css_selector()
 # findbyid.locate_by_link()
 # findbyid.locate_by_tag_class_name()
-findbyid.locate_by_tag_names()
+# findbyid.locate_by_tag_names()
+# findbyid.get_text_from_xpath()
+# findbyid.get_attr_value()
+findbyid.autofill_captcha_simple()
+# findbyid.autofill_captcha_complex()
 
 
 # Add a delay of x seconds
-time.sleep(1)
+time.sleep(100)
 
 # Close the browser
 driver.quit()
