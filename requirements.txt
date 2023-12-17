@@ -1,4 +1,4 @@
 selenium==4.8.0
 webdriver-manager
 webdriver_manager
-selenium-recaptcha-solver
+selenium-recaptcha-solver 
